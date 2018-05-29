@@ -1,0 +1,44 @@
+<div id="todoList">
+
+    <h2>Liste des employes</h2>
+
+    <ul>
+        <li ng-repeat="employe in employes">
+            <a href="#/employe/{{employe.id}}"><span class="todoTitle">{{employe.nom}}</span></a> :
+            <span class="todoDescription">{{employe.prenom | filter:ellipsis:20}}</span> &nbsp;
+            <span class="todoDescription">{{employe.login | filter:ellipsis:20}}</span> &nbsp;
+            <span class="todoDescription">{{employe.role | filter:ellipsis:20}}</span> &nbsp;
+           <button class="button" ng-click="deleteEmploye(employe.id)">X</button>
+        </li>
+    </ul>
+
+    <hr/>
+
+    <button onclick="document.getElementById('todoNew').style.display='inline';" class="button">Ajouter</button>
+
+</div>
+
+<div id="todoNew" style="display: none;">
+
+    <h2>New Employe</h2>
+
+    <form>
+
+        <div class="formField">
+            <label for="employe.nom">Nom</label>
+            <input id="employe.nom" type="text" ng-model="employe.nom"/>
+        </div>
+
+         <div class="formField">
+            <label for="employe.prenom">Prenom</label>
+            <input id="employe.prenom" type="text" ng-model="employe.prenom"/>
+        </div>
+
+        <hr/>
+
+        <button class="button" ng-click="gotoEmployeListPage()">&lt; Retour</button> &nbsp;
+        <button class="button" ng-click="addEmploye(employe)">Sauver</button>
+
+    </form>
+
+</div>

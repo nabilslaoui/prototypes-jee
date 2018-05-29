@@ -1,0 +1,4 @@
+--start server database
+
+--connect toDataBase
+CONNECT 'jdbc:derby://localhost:1527/seconddb;create=true';

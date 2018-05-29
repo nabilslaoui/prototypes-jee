@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<!-- Data Source For ORACLE -->
+<!-- 	<bean id="dateSource" -->
+<!-- 		class="org.springframework.jdbc.datasource.DriverManagerDataSource"> -->
+<!-- 		<property name="driverClassName" value="${oracle.driver}" /> -->
+<!-- 		<property name="url" value="${oracle.url}" /> -->
+<!-- 		<property name="username" value="${oracle.user}" /> -->
+<!-- 		<property name="password" value="${oracle.password}" /> -->
+<!-- 	</bean> -->
+	
+	<!-- Data Source For apache Derby-->
+<!-- 	<bean id="dateSource" -->
+<!-- 		class="org.springframework.jdbc.datasource.DriverManagerDataSource"> -->
+<!-- 		<property name="driverClassName" value="${derby.driver}" /> -->
+<!-- 		<property name="url" value="${derby.url}" /> -->
+<!-- 		<property name="username" value="${derby.user}" /> -->
+<!-- 		<property name="password" value="${derby.password}" /> -->
+<!-- 	</bean> -->
+	
+	<!-- Data Source For H2 -->
+	<bean id="dateSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${h2.driver}" />
+		<property name="url" value="${h2.url}" />
+		<property name="username" value="${h2.user}" />
+		<property name="password" value="${h2.password}" />
+	</bean>
+
+	<!-- DAO with SPRING JDBC -->
+	<!-- <import resource="spring-jdbc/dao-spring-jdbc.xml" /> -->
+
+	<!-- DAO with SPRING HIBERNATE -->
+	<import resource="spring-hibernate/dao-spring-hibernate.xml" />
+
+</beans>

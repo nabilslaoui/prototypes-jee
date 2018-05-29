@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+
+	<!-- ================================================================================ -->
+	<!-- SPRING -->
+	<!-- ================================================================================ -->
+
+	<display-name>SPRING-MVC-ANGULAR-JS</display-name>
+	 <!-- Chargement du context Spring -->
+	  <context-param>
+	    <param-name>contextConfigLocation</param-name>
+	    <param-value>classpath:WS-SOAP-REST-PROVIDER/application-context-springmvc-angularjs.xml</param-value>
+	  </context-param>
+	  <listener>
+	    <listener-class>
+	         org.springframework.web.context.ContextLoaderListener
+	      </listener-class>
+	  </listener>
+	
+	<!-- déclaration de la classe d'implémentation du filtre -->
+    <filter>
+       <filter-name>SimpleCORSFilter</filter-name>
+       <filter-class>com.slaoui.enterprise.prototypes.springmvc.filters.SimpleCORSFilter</filter-class>
+    </filter>
+   
+    <!-- déclaration des URL interceptées par ce filtre -->
+    <filter-mapping>
+       <filter-name>SimpleCORSFilter</filter-name>
+       <!-- on aurait pu aussi définir une servlet filtrée, par un élément servlet-name -->
+       <url-pattern>/rest/*</url-pattern>
+    </filter-mapping>
+
+	<servlet>
+		<servlet-name>Spring</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:WS-SOAP-REST-PROVIDER/ihm/spring-context-mvc-controllers.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>Spring</servlet-name>
+		<url-pattern>/rest/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- ================================================================================ -->
+	<!-- WEBAPP Config -->
+	<!-- ================================================================================ -->
+
+	<welcome-file-list>
+		<welcome-file>/index.html</welcome-file>
+	</welcome-file-list>
+
+</web-app>

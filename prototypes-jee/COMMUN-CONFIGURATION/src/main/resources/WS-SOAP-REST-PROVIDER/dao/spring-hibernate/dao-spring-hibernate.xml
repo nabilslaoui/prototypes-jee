@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd  http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx-4.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- Déclaration Session Factory -->
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dateSource" />
+		<!-- Mapping with hbm files -->
+		<!-- <property name="mappingResources"> -->
+		<!-- <list> -->
+		<!-- <value>WS-SOAP-REST-PROVIDER/spring/dao/spring-hibernate/hbm/Employe.hbm.xml -->
+		<!-- </value> -->
+		<!-- </list> -->
+		<!-- </property> -->
+		<!-- Mapping with annontated classes -->
+		<property name="annotatedClasses">
+			<list>
+				<value>com.slaoui.enterprise.prototypes.dao.beans.EmployeAnnotated
+				</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<!-- For Oracle 10g -->
+				<!-- <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop> -->
+				<!-- For Apache Derby 10.6 -->
+				<!-- <prop key="hibernate.dialect">org.hibernate.dialect.DerbyTenSixDialect</prop> -->
+				<!-- For H2 -->
+				<prop key="hibernate.dialect"> org.hibernate.dialect.H2Dialect</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+<!-- 				<prop key="hibernate.default_schema">sa</prop> -->
+				<prop key="hibernate.current_session_context_class">thread</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- Déclaration Template Hibernate -->
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- Detection automatique pour instanciation des Services DAO -->
+	<context:annotation-config />
+	<context:component-scan
+		base-package="com.slaoui.enterprise.prototypes.dao.springhibernate.impl" />
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+</beans>

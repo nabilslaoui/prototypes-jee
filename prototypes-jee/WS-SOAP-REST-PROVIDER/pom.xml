@@ -1,0 +1,107 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.slaoui.enterprise.prototypes</groupId>
+		<artifactId>PARENT</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>WS-SOAP-REST-PROVIDER</artifactId>
+	<packaging>war</packaging>
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+		<plugins>
+			<!-- JAX-WS Plugin generation -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxws-maven-plugin</artifactId>
+				<version>1.12</version>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>wsimport</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<wsdlDirectory>${basedir}/src/main/webapp/WEB-INF/wsdl</wsdlDirectory>
+					<wsdlFiles>
+						<wsdlFile>GestionEmploye.wsdl</wsdlFile>
+						<wsdlFile>ChonopostServiceInfosLT.wsdl</wsdlFile>
+						<wsdlFile>ChronopostInfosMonoEtiquetteServiceWS.wsdl</wsdlFile>
+						<wsdlFile>ChronopostServiceCrm.wsdl</wsdlFile>
+						<wsdlFile>ChronopostShippingServiceWS.wsdl</wsdlFile>
+						<wsdlFile>ChronopostTrackingServiceWS.wsdl</wsdlFile>
+						<wsdlFile>ColiposteShipping.wsdl</wsdlFile>
+						<wsdlFile>EtatServeurAutomates_STIT.wsdl</wsdlFile>
+						<wsdlFile>MascadiaService.wsdl</wsdlFile>
+						<wsdlFile>WSColiPosteLetterService.wsdl</wsdlFile>
+						<wsdlFile>WSColiPosteParcelCheck.wsdl</wsdlFile>
+						<wsdlFile>WSColiPosteTrackingService.wsdl</wsdlFile>
+					</wsdlFiles>
+					<sourceDestDir>src/main/java</sourceDestDir>
+					<extension>true</extension>
+					<verbose>true</verbose>
+					<xnocompile>true</xnocompile>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<warSourceDirectory>${basedir}/src/main/webapp/</warSourceDirectory>
+					<warDirectory>${basedir}/src/main/webapp/</warDirectory>
+					<url>http://www.localhost:8080/WS-SOAP-REST-CXF-PROVIDER/</url>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<warSourceDirectory>${basedir}/src/main/webapp/</warSourceDirectory>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<dependencies>
+		<!-- Apache CXF FOR SOAP -->
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxws</artifactId>
+			<version>3.1.4</version>
+		</dependency>
+		<!-- Apache CXF FOR REST -->
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxrs</artifactId>
+			<version>3.1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http</artifactId>
+			<version>3.1.4</version>
+		</dependency>
+		<!-- Dependances Applicatifs -->
+		<!-- Couche Transverse & Configurations -->
+		<dependency>
+			<groupId>com.slaoui.enterprise.prototypes</groupId>
+			<artifactId>COMMUN-CONFIGURATION</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<!-- Couche BUSINESS -->
+		<dependency>
+			<groupId>com.slaoui.enterprise.prototypes</groupId>
+			<artifactId>BUSINESS</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+	<distributionManagement>
+		<snapshotRepository>
+			<id>nexus_snapshots</id>
+			<url>http://localhost:8081/repository/maven-snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+</project>

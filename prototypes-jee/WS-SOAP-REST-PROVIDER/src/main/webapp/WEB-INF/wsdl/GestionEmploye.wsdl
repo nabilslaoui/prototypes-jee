@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://jaxws.soap.prototypes.enterprise.slaoui.com/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	name="GestionEmploye" targetNamespace="http://jaxws.soap.prototypes.enterprise.slaoui.com/">
+	<wsdl:types>
+
+		<xsd:schema targetNamespace="http://jaxws.soap.prototypes.enterprise.slaoui.com/">
+
+			<xsd:element name="createEmpployesRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="employes" type="tns:ListEmployes" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="createEmpployesResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="errorCode" type="xsd:string" />
+						<xsd:element name="idsCreatedEmploye" type="tns:ListIdsEmployes" minOccurs="1" maxOccurs="1"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<xsd:element name="getEmployesByIDRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="idEmployes" type="tns:ListIdsEmployes" minOccurs="1" maxOccurs="1"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="getEmployesByIDResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="errorCode" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+						<xsd:element name="employes" type="tns:ListEmployes" minOccurs="0" maxOccurs="1"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<xsd:element name="getAllEmployesRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="getAllEmployesResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="errorCode" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+						<xsd:element name="employes" type="tns:ListEmployes" minOccurs="0" maxOccurs="1"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<xsd:complexType name="ListEmployes">
+				<xsd:sequence>
+					<xsd:element name="employe" type="tns:Employe" maxOccurs="unbounded" minOccurs="0"/>					
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<xsd:complexType name="Employe">
+				<xsd:sequence>
+					<xsd:element name="login" type="xsd:string" maxOccurs="1" minOccurs="1"/>					
+					<xsd:element name="password" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+					<xsd:element name="prenom" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+					<xsd:element name="nom" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+					<xsd:element name="email" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+					<xsd:element name="role" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<xsd:complexType name="ListIdsEmployes">
+				<xsd:sequence>
+					<xsd:element name="id" type="xsd:integer" maxOccurs="unbounded" minOccurs="1"/>					
+				</xsd:sequence>
+			</xsd:complexType>
+			
+		</xsd:schema>
+
+	</wsdl:types>
+
+	<wsdl:message name="createEmpployesRequest">
+		<wsdl:part element="tns:createEmpployesRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="createEmpployesResponse">
+		<wsdl:part element="tns:createEmpployesResponse" name="parameters" />
+	</wsdl:message>
+	
+	<wsdl:message name="getEmployesByIDRequest">
+		<wsdl:part element="tns:getEmployesByIDRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="getEmployesByIDResponse">
+		<wsdl:part element="tns:getEmployesByIDResponse" name="parameters" />
+	</wsdl:message>
+	
+	<wsdl:message name="getAllEmployesRequest">
+		<wsdl:part element="tns:getAllEmployesRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="getAllEmployesResponse">
+		<wsdl:part element="tns:getAllEmployesResponse" name="parameters" />
+	</wsdl:message>
+	
+	<wsdl:portType name="GestionEmployes">
+		<wsdl:operation name="createEmployes">
+			<wsdl:input message="tns:createEmpployesRequest" />
+			<wsdl:output message="tns:createEmpployesResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="getEmployesByID">
+			<wsdl:input message="tns:getEmployesByIDRequest" />
+			<wsdl:output message="tns:getEmployesByIDResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="getAllEmployes">
+			<wsdl:input message="tns:getAllEmployesRequest" />
+			<wsdl:output message="tns:getAllEmployesResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	
+	<wsdl:binding name="GestionEmployesSOAP" type="tns:GestionEmployes">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="createEmployes">
+			<soap:operation	soapAction="http://jaxws.soap.prototypes.enterprise.slaoui.com/createEmployes" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getEmployesByID">
+			<soap:operation	soapAction="http://jaxws.soap.prototypes.enterprise.slaoui.com/getEmployesByID" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getAllEmployes">
+			<soap:operation	soapAction="http://jaxws.soap.prototypes.enterprise.slaoui.com/getAllEmployes" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="GestionEmployes">
+		<wsdl:port binding="tns:GestionEmployesSOAP" name="GestionEmployesSOAP">
+			<soap:address location="http://localhost:8080/WS-SOAP-REST-PROVIDER/GestionEmployes" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
